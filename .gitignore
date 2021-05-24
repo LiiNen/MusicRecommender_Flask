@@ -1,2 +1,4 @@
 test
 *pycache*
+*.csv
+*train.py

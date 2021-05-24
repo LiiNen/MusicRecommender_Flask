@@ -8,18 +8,14 @@
     <body>
         <h1>Music Recommender</h1>
         <div>{{result}}</div>
-        <div class="select">
-            <input type="text"> <button>검색</button>
-            <ul id="music_list">
-                <li><span>sdf</span>sss</li>
-                <li>123</li>
-                <li>456</li>
-                <li>789</li>
-                <li>122</li>
-                <li>444</li>
-            </ul>
-        </div>
+        <select size=10>
+            {% for music in music_list %}
+                <option>{{music}}</option>
+            {% endfor %}
+        </select>
 
         <script src="{{url_for('static', filename='index.js')}}"></script>
+        <script type="text/javascript">
+        </script>
     </body>
 </html>

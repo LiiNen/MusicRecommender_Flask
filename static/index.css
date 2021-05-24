@@ -7,3 +7,24 @@ span {
     width: 50%;
     display: block;
 }
+
+#inputWrapper {
+    width: 50%;
+    display: block;
+    border: 2px solid black;
+    border-radius: 2px;
+}
+
+#inputWrapper input {
+    padding: 0;
+    margin-left: 5%;
+    width: auto;
+    border-width: 0;
+}
+
+#inputWrapper button {
+    padding: 0;
+    margin-right: 5%;
+    width: 10%;
+    border-width: 0;
+}

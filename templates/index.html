@@ -8,8 +8,11 @@
     <body>
         <h1>Music Recommender</h1>
         <div>{{result}}</div>
-        <input type="text">
-        <button onclick="selectVisible()">노래 추천</button>
+        <div id="inputWrapper">
+            <input type="text">
+            <button id="dropdownBtn" onclick="selectVisible()">ㅁ</button>
+        </div>
+        <button onclick="search()">노래 추천</button>
         <select size=10 id="musicSelector" style="visibility: hidden;">
         </select>
 

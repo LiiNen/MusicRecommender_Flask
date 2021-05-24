@@ -1,7 +1,5 @@
 import json
 from flask import Flask, render_template, request
-from utils.train import getResult
-from utils.train import json_object
 from utils.load import getMusicList
 
 app = Flask(__name__)

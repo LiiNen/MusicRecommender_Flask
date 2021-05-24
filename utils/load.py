@@ -11,11 +11,19 @@ from sklearn.cluster import KMeans
 import seaborn as sns
 from scipy.spatial.distance import cdist
 
-def getMusicList():
-    data = pd.read_csv('dataset.csv', encoding='cp949')
-    music_list = data['filename'].values.tolist()
+data = pd.read_csv('dataset.csv', encoding='cp949')
 
+def getMusicList():    
+    music_list = data['filename'].values.tolist()
     return music_list
+
+def getMusicInfo(music_name):
+    music_info = data[(data['filename'] == music_name)]
+    print(music_info)
+    if len(music_info) == 0:
+        return 'not exist'
+    music_info = music_info.to_json()
+    return music_info
 
 if __name__ == '__main__':
     getMusicList()

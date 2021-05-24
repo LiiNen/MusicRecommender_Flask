@@ -26,9 +26,11 @@ function searchBtn() {
             else {
                 responseJSON = JSON.parse(responseText);
                 Object.keys(responseJSON).forEach(function(key){
-                    temp = document.createElement('div');
-                    temp.innerHTML = key + '<br>' + responseJSON[key][0] + '<br><br>';
-                    resultBox.appendChild(temp);
+                    Object.keys(responseJSON[key]).forEach(function(index){
+                        temp = document.createElement('div');
+                        temp.innerHTML = key + '<br>' + responseJSON[key][index] + '<br><br>';
+                        resultBox.appendChild(temp);
+                    })
                 })
             }
         }

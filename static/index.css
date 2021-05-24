@@ -2,3 +2,8 @@ span {
     font-size: 100px;
     text-align: right;
 }
+
+#musicSelector {
+    width: 50%;
+    display: block;
+}

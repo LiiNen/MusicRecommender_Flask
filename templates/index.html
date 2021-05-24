@@ -8,14 +8,22 @@
     <body>
         <h1>Music Recommender</h1>
         <div>{{result}}</div>
-        <select size=10>
-            {% for music in music_list %}
-                <option>{{music}}</option>
-            {% endfor %}
+        <input type="text">
+        <button onclick="selectVisible()">노래 추천</button>
+        <select size=10 id="musicSelector" style="visibility: hidden;">
         </select>
 
         <script src="{{url_for('static', filename='index.js')}}"></script>
         <script type="text/javascript">
+            music_list = "{{music_list_json}}"
+            music_list = music_list.replaceAll('&#39;', '').replaceAll('.wav', '').replaceAll('[', '').replaceAll(']', '').split(',')
+            music_list_length = music_list.length
+            musicSelector = document.getElementById('musicSelector')
+            for(var i = 0; i < music_list_length; i++) {
+                temp_option = document.createElement('option')
+                temp_option.innerHTML = music_list[i].replace('\"', '');
+                musicSelector.appendChild(temp_option)
+            }
         </script>
     </body>
 </html>

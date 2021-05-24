@@ -8,7 +8,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def main():
-    return render_template('index.html', result='test', music_list=map(json.dumps, getMusicList()))
+    music_list = getMusicList()
+    print(music_list[0], len(music_list))
+    return render_template('index.html', result='test', \
+        music_list_json=[music for music in music_list])
 
 @app.route('/<musicinfo>')
 def result(musicinfo):

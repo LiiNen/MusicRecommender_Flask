@@ -1,7 +1,13 @@
 function selectVisible() {
     selector = document.getElementById('musicSelector');
-    if(selector.style.visibility == 'hidden') selector.style.visibility = 'visible';
-    else selector.style.visibility = 'hidden';
+    if(selector.style.visibility == 'hidden') {
+        selector.style.visibility = 'visible';
+        selector.style.display = 'block';
+    }
+    else {
+        selector.style.visibility = 'hidden';
+        selector.style.display = 'none';
+    }
 }
 
 function searchBtn() {

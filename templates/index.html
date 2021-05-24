@@ -9,10 +9,10 @@
         <h1>Music Recommender</h1>
         <div>{{result}}</div>
         <div id="inputWrapper">
-            <input type="text">
+            <input type="text" id="searchInput">
             <button id="dropdownBtn" onclick="selectVisible()">ㅁ</button>
         </div>
-        <button onclick="search()">노래 추천</button>
+        <button id="searchBtn" onclick="searchBtn()">노래 추천</button>
         <select size=10 id="musicSelector" style="visibility: hidden;">
         </select>
 

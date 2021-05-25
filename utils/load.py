@@ -4,7 +4,7 @@ import numpy as np
 import csv
 import sklearn
 from glob import glob
-import spleeter
+# import spleeter
 from tqdm import tqdm
 import pandas as pd
 from sklearn.cluster import KMeans

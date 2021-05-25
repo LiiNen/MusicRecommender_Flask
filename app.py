@@ -1,6 +1,7 @@
 import json
 from flask import Flask, render_template, request
 from utils.load import getMusicList
+from utils.load import getMusicInfo
 
 app = Flask(__name__)
 
@@ -13,7 +14,11 @@ def main():
 
 @app.route('/select_music', methods=['POST'])
 def select_music():
-    return True
+    if request.method == 'POST':
+        music_name = request.get_json()['music_name']
+    music_info = getMusicInfo(music_name)
+    print(music_info)
+    return music_info, 200
 
 if __name__=='__main__':
     app.run(debug=True)

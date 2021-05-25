@@ -19,7 +19,6 @@ def getMusicList():
 
 def getMusicInfo(music_name):
     music_info = data[(data['filename'] == music_name)]
-    print(music_info)
     if len(music_info) == 0:
         return 'not exist'
     music_info = music_info.to_json()

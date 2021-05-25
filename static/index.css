@@ -20,15 +20,7 @@ span {
     margin-left: 1%;
     margin-right: 1%;
     border-width: 0;
-    width: 92%;
-}
-
-#inputWrapper button {
-    padding: 0;
-    margin-right: 1%;
-    width: 5%;
-    border-width: 0;
-    float: right;
+    width: 98%;
 }
 
 #searchBtn {

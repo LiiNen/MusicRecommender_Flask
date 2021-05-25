@@ -10,7 +10,6 @@
         <div>{{result}}</div>
         <div id="inputWrapper">
             <input type="text" id="searchInput">
-            <button id="dropdownBtn" onclick="selectVisible()">▽</button>
         </div>
         <button id="searchBtn" onclick="searchBtn()">노래 추천</button>
         <select size=10 id="musicSelector" style="visibility: hidden; display: none;"></select>
@@ -19,10 +18,11 @@
         <script src="{{url_for('static', filename='index.js')}}"></script>
         <script type="text/javascript">
             music_list = "{{music_list_json}}"
-            music_list = music_list.replaceAll('&#39;', '').replaceAll('.wav', '').replaceAll('[', '').replaceAll(']', '').split(',')
+            music_list = music_list.replaceAll('&#39;', '').replaceAll('&#34;', '').replaceAll('.wav', '').replaceAll(']', '').split(',')
             music_list_length = music_list.length
             musicSelector = document.getElementById('musicSelector')
             for(var i = 0; i < music_list_length; i++) {
+                music_list[i] = music_list[i].substring(1);
                 var temp_option = document.createElement('option')
                 temp_option.innerHTML = music_list[i].replace('\"', '');
                 musicSelector.appendChild(temp_option);
@@ -31,7 +31,8 @@
                     var music_title = music_list[i];
                     temp_option.addEventListener('click', function() {
                         searchInput.value = music_title;
-                        console.log('ssss');
+                        musicSelector.style.visibility = 'hidden';
+                        musicSelector.style.display = 'none';
                     });
                 }());
             }

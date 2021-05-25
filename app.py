@@ -8,10 +8,15 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "ABCD"
 
 @app.route('/')
-def main():
+def main(upload=None):
     music_list = getMusicList()
     print(music_list[0], len(music_list))
-    return render_template('index.html', result='test', \
+
+    if (upload):
+        status = upload.filename
+    else: status = '음원 파일을 업로드 해주세요'
+    
+    return render_template('index.html', result=status, \
         music_list_json=[music for music in music_list])
 
 @app.route('/select_music', methods=['POST'])
@@ -28,7 +33,7 @@ def upload_music():
         f = request.files['file']
         f.save(secure_filename(f.filename))
         flash('파일 업로드 완료')
-    return  render_template('index.html', result=f.filename)
+    return main(f)
 
 if __name__=='__main__':
     app.run(debug=True)

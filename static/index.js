@@ -14,6 +14,9 @@ searchInputListener();
 function searchInputListener() {
     searchInput.addEventListener('click', searchInputChange);
     searchInput.addEventListener('keyup', searchInputChange);
+    searchInput.addEventListener('keyup', function(event) {
+        if(event.key == 'Enter') searchBtn()
+    })
 }
 
 function searchInputChange() {
@@ -39,6 +42,7 @@ function searchInputChange() {
                     searchInput.value = music_title;
                     musicSelector.style.visibility = 'hidden';
                     musicSelector.style.display = 'none';
+                    searchInput.focus();
                 });
             }());
         }
@@ -66,6 +70,7 @@ function searchParser(searchValue) {
                     searchInput.value = music_title;
                     musicSelector.style.visibility = 'hidden';
                     musicSelector.style.display = 'none';
+                    searchInput.focus();
                 });
             }());
             if (musicSelector.childElementCount < 10) musicSelector.size = musicSelector.childElementCount

@@ -12,32 +12,42 @@ function selectVisible() {
 
 searchInputListener();
 function searchInputListener() {
-    var searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('click', searchInputChange);
+    searchInput.addEventListener('keyup', searchInputChange);
     searchInput.addEventListener('keyup', function(event) {
-        event.preventDefault();
-        if (searchInput.value != "") {
-            searchParser(searchInput.value);
-        }
-        else {
-            var musicSelector = document.getElementById('musicSelector');
-            while(musicSelector.hasChildNodes()) {
-                musicSelector.removeChild(musicSelector.firstChild);
-            }
-            for(var i = 0; i < music_list_length; i++) {
-                var temp_option = document.createElement('option')
-                temp_option.innerHTML = music_list[i].replace('\"', '');
-                musicSelector.appendChild(temp_option);
-
-                (function() {
-                    var music_title = music_list[i];
-                    temp_option.addEventListener('click', function() {
-                        searchInput.value = music_title;
-                        console.log('ssss');
-                    });
-                }());
-            }
-        }
+        if(event.key == 'Enter') searchBtn()
     })
+}
+
+function searchInputChange() {
+    var searchInput = document.getElementById('searchInput');
+    if (searchInput.value != "") {
+        searchParser(searchInput.value);
+    }
+    else {
+        var musicSelector = document.getElementById('musicSelector');
+        musicSelector.style.visibility = 'visible';
+        musicSelector.style.display = 'block';
+        while(musicSelector.hasChildNodes()) {
+            musicSelector.removeChild(musicSelector.firstChild);
+        }
+        for(var i = 0; i < music_list_length; i++) {
+            var temp_option = document.createElement('option')
+            temp_option.innerHTML = music_list[i].replace('\"', '');
+            musicSelector.appendChild(temp_option);
+
+            (function() {
+                var music_title = music_list[i];
+                temp_option.addEventListener('click', function() {
+                    searchInput.value = music_title;
+                    musicSelector.style.visibility = 'hidden';
+                    musicSelector.style.display = 'none';
+                    searchInput.focus();
+                });
+            }());
+        }
+        musicSelector.size = 10;
+    }
 }
 
 function searchParser(searchValue) {
@@ -53,23 +63,29 @@ function searchParser(searchValue) {
             var temp_option = document.createElement('option')
             temp_option.innerHTML = music_list[i].replace('\"', '');
             musicSelector.appendChild(temp_option);
-            
             (function() {
                 var music_title = music_list[i];
                 temp_option.addEventListener('click', function() {
                     searchInput.value = music_title;
-                    console.log('ssss');
+                    musicSelector.style.visibility = 'hidden';
+                    musicSelector.style.display = 'none';
+                    searchInput.focus();
                 });
             }());
             if (musicSelector.childElementCount < 10) musicSelector.size = musicSelector.childElementCount
+            else musicSelector.size = 10;
         }
+    }
+    if (musicSelector.childElementCount == 0) {
+        musicSelector.style.visibility = 'hidden';
+        musicSelector.style.display = 'none';
     }
 }
 
 function searchBtn() {
     var searchInput = document.getElementById('searchInput');
     var url = '/select_music';
-    var data = JSON.stringify({'music_name': searchInput.value});
+    var data = JSON.stringify({'music_name': searchInput.value + '.wav'});
     var resultBox = document.getElementById('resultBox');
     while(resultBox.hasChildNodes()) {
         resultBox.removeChild(resultBox.firstChild);

@@ -2,5 +2,6 @@
 
  - git clone
  - cd project
+ - pip install -r requirements.txt
  - set FLASK_ENV=development
- - run app.py
+ - python app.py

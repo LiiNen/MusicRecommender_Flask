@@ -63,7 +63,6 @@ function searchParser(searchValue) {
             var temp_option = document.createElement('option')
             temp_option.innerHTML = music_list[i].replace('\"', '');
             musicSelector.appendChild(temp_option);
-
             (function() {
                 var music_title = music_list[i];
                 temp_option.addEventListener('click', function() {

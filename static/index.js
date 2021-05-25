@@ -26,7 +26,15 @@ function searchInputListener() {
             for(var i = 0; i < music_list_length; i++) {
                 var temp_option = document.createElement('option')
                 temp_option.innerHTML = music_list[i].replace('\"', '');
-                musicSelector.appendChild(temp_option)
+                musicSelector.appendChild(temp_option);
+
+                (function() {
+                    var music_title = music_list[i];
+                    temp_option.addEventListener('click', function() {
+                        searchInput.value = music_title;
+                        console.log('ssss');
+                    });
+                }());
             }
         }
     })
@@ -44,7 +52,15 @@ function searchParser(searchValue) {
         if (music_list[i].includes(searchValue)) {
             var temp_option = document.createElement('option')
             temp_option.innerHTML = music_list[i].replace('\"', '');
-            musicSelector.appendChild(temp_option)
+            musicSelector.appendChild(temp_option);
+            
+            (function() {
+                var music_title = music_list[i];
+                temp_option.addEventListener('click', function() {
+                    searchInput.value = music_title;
+                    console.log('ssss');
+                });
+            }());
             if (musicSelector.childElementCount < 10) musicSelector.size = musicSelector.childElementCount
         }
     }

@@ -4,12 +4,12 @@ span {
 }
 
 #musicSelector {
-    width: 50%;
+    width: 40%;
     display: block;
 }
 
 #inputWrapper {
-    width: 50%;
+    width: 40%;
     display: inline-block;
     border: 1px solid black;
     border-radius: 2px;
@@ -25,4 +25,9 @@ span {
 
 #searchBtn {
     display: inline-block;
+}
+
+#upload {
+    display: block;
+    width: 40%
 }

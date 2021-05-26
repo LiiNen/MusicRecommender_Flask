@@ -2,6 +2,7 @@ import json
 from flask import Flask, render_template, request, flash
 from utils.load import getMusicList
 from utils.load import getMusicInfo
+from utils.wavParser import wavParser
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -31,7 +32,8 @@ def select_music():
 def upload_music():
     if request.method == 'POST':
         f = request.files['file']
-        f.save(secure_filename(f.filename))
+        f.save(secure_filename('upload.wav'))
+        wavParser()
         flash('파일 업로드 완료')
     return main(f)
 

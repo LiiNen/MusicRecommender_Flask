@@ -43,11 +43,13 @@ function searchInputChange() {
                     musicSelector.style.visibility = 'hidden';
                     musicSelector.style.display = 'none';
                     searchInput.focus();
+                    document.getElementById('searchHref').href = '/result?' + music_title
                 });
             }());
         }
         musicSelector.size = 10;
     }
+    document.getElementById('searchHref').href = '/result?type=' + searchInput.value
 }
 
 function searchParser(searchValue) {
@@ -70,6 +72,7 @@ function searchParser(searchValue) {
                     musicSelector.style.visibility = 'hidden';
                     musicSelector.style.display = 'none';
                     searchInput.focus();
+                    document.getElementById('searchHref').href = '/result?' + searchInput.value
                 });
             }());
             if (musicSelector.childElementCount < 10) musicSelector.size = musicSelector.childElementCount
@@ -116,3 +119,6 @@ function searchBtn() {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(data);
 }
+
+
+            

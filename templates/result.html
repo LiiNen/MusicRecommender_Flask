@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='result.css')}}">
+        <title>MR</title>
+    </head>
+    <body>
+        <h1>Music Recommender</h1>
+        <div></div>
+        <div>{{search_type}}</div>
+
+        <script src="{{url_for('static', filename='result.js')}}"></script>
+        <script type="text/javascript">
+            if ("{{search_type}}" == 'upload') {
+                console.log('upload')
+            }
+            else {
+                searchWithTitle("{{search_type}}")
+            }
+        </script>
+
+        {%with messages = get_flashed_messages()%}
+        {%if messages %}
+        <script type="text/javascript">
+            alert("{{messages[-1]}}");
+        </script>
+        {%endif%}
+        {%endwith%}
+    </body>
+</html>

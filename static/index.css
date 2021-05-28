@@ -31,3 +31,10 @@ span {
     display: block;
     width: 40%
 }
+
+
+a:link, a:visited, a:hover {
+    color: black;
+    text-decoration: none;
+    cursor: default;
+}

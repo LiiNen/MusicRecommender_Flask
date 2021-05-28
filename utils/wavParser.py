@@ -1,6 +1,13 @@
 from pydub import AudioSegment
 from pydub.utils import mediainfo
 import os
+import librosa
+import IPython.display as ipd
+import matplotlib.pyplot as plt
+import librosa.display
+import numpy as np
+import csv
+import sklearn
 
 FORMAT="wav"
 t_sec=1000

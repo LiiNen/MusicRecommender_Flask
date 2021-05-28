@@ -8,3 +8,4 @@ test
 *parse_audio.py
 *.wav
 model
+*.ipynb

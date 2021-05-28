@@ -27,14 +27,13 @@
 
             predict_list = "{{predict_result_list}}"
             predict_list = predict_list.replaceAll('&#39;', '').replaceAll('&#34;', '').split(',')
-            console.log(predict_list)
             predict_list_length = predict_list.length
-            resultBox = document.getElementById('result_box')
             for(var i = 0; i < predict_list_length; i++) {
-                temp = document.createElement('div')
-                temp.innerText = predict_list[i]
-                resultBox.appendChild(temp)
+                predict_list[i] = predict_list[i].substring(1)
             }
+            console.log(predict_list)
+            if (predict_list_length > 10) predict_list_length = 10
+            makeResult()
         </script>
 
         {%with messages = get_flashed_messages()%}

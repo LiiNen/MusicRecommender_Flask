@@ -10,6 +10,7 @@
         <div></div>
         <div>{{search_type}}</div>
         <audio controls id='music_player'></audio>
+        <div id = 'result_box'></div>
 
         <script src="{{url_for('static', filename='result.js')}}"></script>
         <script type="text/javascript">
@@ -20,6 +21,19 @@
             }
             else {
                 searchWithTitle("{{search_type}}")
+                music_player = document.getElementById('music_player')
+                music_player.src = "{{url_for('static', filename='music_dataset/')}}"
+            }
+
+            predict_list = "{{predict_result_list}}"
+            predict_list = predict_list.replaceAll('&#39;', '').replaceAll('&#34;', '').split(',')
+            console.log(predict_list)
+            predict_list_length = predict_list.length
+            resultBox = document.getElementById('result_box')
+            for(var i = 0; i < predict_list_length; i++) {
+                temp = document.createElement('div')
+                temp.innerText = predict_list[i]
+                resultBox.appendChild(temp)
             }
         </script>
 

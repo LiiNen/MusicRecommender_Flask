@@ -12,11 +12,13 @@ def getFeature():
     feature_name = ['chroma', 'rms', 'spectral_centroid', 'spectral_bandwidth', 'spectral_rolloff', 'zero_crossing_rate', 'harmony', 'perceptr']
     for i in  range(1, 21):
         feature_name.append('mfccs_' + str(i))
-    feature_list = ['filename', 'length']
+    feature_list = []
     for feature in feature_name:
         feature_list.append(feature + '_mean')
         feature_list.append(feature + '_var')
     feature_list.append('bpm')
+    f = open('static/output.csv', 'w')
+    f.write(','.join(feature_list) + '\n')
 
     y, sr = librosa.load('static/output.wav')
     chromagram = librosa.feature.chroma_stft(y, sr=sr, hop_length=512)
@@ -33,7 +35,7 @@ def getFeature():
                 zero_crossing_rate, y_harm, y_perc]
 
     filename = 'upload_output'
-    row = [str(filename), str(len(y)), str(bpm)]
+    row = [str(bpm)]
 
     for data in data_list:
         row.append(str(np.mean(data)))
@@ -41,6 +43,6 @@ def getFeature():
     for i in range(1, 21):
         row.append(str(mfccs[i-1].mean()))
         row.append(str(mfccs[i-1].var()))
-
-    print(row)
+    f.write(','.join(row) + '\n')
+    f.close()
     return

@@ -7,20 +7,26 @@
     </head>
     <body>
         <h1>Music Recommender</h1>
-        <div>{{result}}</div>
-        <div id="upload">
-            <form action = "http://localhost:5000/upload" method = "POST" enctype = "multipart/form-data">
-                <input type = "file" name = "file" />
-                <input type = "submit"/>
-            </form>
-        </div>
-        <div id="inputWrapper">
-            <input type="text" id="searchInput">
-        </div>
-        <button id="searchBtn"><a href="/result" id="searchHref">검색</a></button>
         
-        <select size=10 id="musicSelector" style="visibility: hidden; display: none;"></select>
-        <div id="resultBox"></div>
+        <div id="midComponent">
+            <div id="upload">
+                <div>{{result}}</div>
+                <form action = "http://localhost:5000/upload" method = "POST" enctype = "multipart/form-data">
+                    <input type = "file" name = "file" />
+                    <input type = "submit" value="업로드"/>
+                </form>
+            </div>
+            <br>
+            <div id="inputWrapper">
+                <input type="text" id="searchInput" placeholder="또는 데이터베이스에서 찾아보기">
+            </div>
+            <br>
+            <select size=10 id="musicSelector" style="visibility: hidden; display: none;"></select>
+            <br>
+            
+            <button id="searchBtn"><a href="/result" id="searchHref">검색</a></button>
+        </div>
+        
 
         <script src="{{url_for('static', filename='index.js')}}"></script>
         <script type="text/javascript">

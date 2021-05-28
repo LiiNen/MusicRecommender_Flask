@@ -2,7 +2,7 @@ function selectVisible() {
     var selector = document.getElementById('musicSelector');
     if(selector.style.visibility == 'hidden') {
         selector.style.visibility = 'visible';
-        selector.style.display = 'block';
+        selector.style.display = 'inline-block';
     }
     else {
         selector.style.visibility = 'hidden';
@@ -15,7 +15,7 @@ function searchInputListener() {
     searchInput.addEventListener('click', searchInputChange);
     searchInput.addEventListener('keyup', searchInputChange);
     searchInput.addEventListener('keyup', function(event) {
-        if(event.key == 'Enter') searchBtn()
+        if(event.key == 'Enter') document.getElementById('searchHref').click()
     })
 }
 
@@ -27,7 +27,7 @@ function searchInputChange() {
     else {
         var musicSelector = document.getElementById('musicSelector');
         musicSelector.style.visibility = 'visible';
-        musicSelector.style.display = 'block';
+        musicSelector.style.display = 'inline-block';
         while(musicSelector.hasChildNodes()) {
             musicSelector.removeChild(musicSelector.firstChild);
         }
@@ -55,7 +55,7 @@ function searchInputChange() {
 function searchParser(searchValue) {
     var musicSelector = document.getElementById('musicSelector');
     musicSelector.style.visibility = 'visible';
-    musicSelector.style.display = 'block';
+    musicSelector.style.display = 'inline-block';
     while(musicSelector.hasChildNodes()) {
         musicSelector.removeChild(musicSelector.firstChild);
     }

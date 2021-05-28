@@ -7,3 +7,5 @@ test
 *.pdf
 *parse_audio.py
 *.wav
+model
+*.ipynb

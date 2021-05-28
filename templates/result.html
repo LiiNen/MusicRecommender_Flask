@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='result.css')}}">
+        <title>MR</title>
+    </head>
+    <body>
+        <h1>Music Recommender</h1>
+        <div></div>
+        <div>{{search_type}}</div>
+        <audio controls id='music_player'></audio>
+        <div id = 'result_box'></div>
+
+        <script src="{{url_for('static', filename='result.js')}}"></script>
+        <script type="text/javascript">
+            if ("{{search_type}}" == 'upload') {
+                console.log('upload')
+                music_player = document.getElementById('music_player')
+                music_player.src = "{{url_for('static', filename='output.wav')}}"
+            }
+            else {
+                searchWithTitle("{{search_type}}")
+                music_player = document.getElementById('music_player')
+                music_player.src = "{{url_for('static', filename='music_dataset/')}}"
+            }
+
+            predict_list = "{{predict_result_list}}"
+            predict_list = predict_list.replaceAll('&#39;', '').replaceAll('&#34;', '').split(',')
+            predict_list_length = predict_list.length
+            for(var i = 0; i < predict_list_length; i++) {
+                predict_list[i] = predict_list[i].substring(1)
+            }
+            console.log(predict_list)
+            if (predict_list_length > 10) predict_list_length = 10
+            makeResult()
+        </script>
+
+        {%with messages = get_flashed_messages()%}
+        {%if messages %}
+        <script type="text/javascript">
+            alert("{{messages[-1]}}");
+        </script>
+        {%endif%}
+        {%endwith%}
+    </body>
+</html>

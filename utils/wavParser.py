@@ -1,6 +1,13 @@
 from pydub import AudioSegment
 from pydub.utils import mediainfo
 import os
+import librosa
+import IPython.display as ipd
+import matplotlib.pyplot as plt
+import librosa.display
+import numpy as np
+import csv
+import sklearn
 
 FORMAT="wav"
 t_sec=1000
@@ -17,14 +24,13 @@ def cut_audio(sound_, sec_start, sec_dur):
   return sound_[t_sec*sec_start:t_sec*sec_start+t_sec*sec_dur]
 
 def wavParser():
-    file_path = os.getcwd() + '\\upload.wav'
+    file_path = os.getcwd() + '/upload.wav'
     print(file_path)
-    
-    # 병수형 코드
+
     sound = AudioSegment.from_file(file_path)
     sound_cut = cut_audio(sound, 60, 30)
     try:
-        sound_cut.export(os.getcwd() + '\\output.wav', format=FORMAT, tags=None, parameters=["-ar", "22000", "-ac", "1"])
+        sound_cut.export(os.getcwd() + '\\static\\output.wav', format=FORMAT, tags=None, parameters=["-ar", "22000", "-ac", "1"])
     except Exception as e:
         print('Error processing', e)
     return

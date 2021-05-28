@@ -7,43 +7,40 @@
     </head>
     <body>
         <h1>Music Recommender</h1>
-        <div>{{result}}</div>
-        <div id="upload">
-            <form action = "http://localhost:5000/upload" method = "POST" enctype = "multipart/form-data">
-                <input type = "file" name = "file" />
-                <input type = "submit" />
-            </form>
-        </div>
-        <div id="inputWrapper">
-            <input type="text" id="searchInput">
-        </div>
-        <button id="searchBtn" onclick="searchBtn()">검색</button>
         
-        <select size=10 id="musicSelector" style="visibility: hidden; display: none;"></select>
-        <div id="resultBox"></div>
+        <div id="midComponent">
+            <div id="upload">
+                <div>{{result}}</div>
+                <form action = "http://localhost:5000/upload" method = "POST" enctype = "multipart/form-data">
+                    <input type = "file" name = "file" />
+                    <input type = "submit" value="업로드"/>
+                </form>
+            </div>
+            <br>
+            <div id="inputWrapper">
+                <input type="text" id="searchInput" placeholder="또는 데이터베이스에서 찾아보기">
+            </div>
+            <br>
+            <select size=10 id="musicSelector" style="visibility: hidden; display: none;"></select>
+            <br>
+            
+            <button id="searchBtn"><a href="/result" id="searchHref">검색</a></button>
+        </div>
+        
 
         <script src="{{url_for('static', filename='index.js')}}"></script>
         <script type="text/javascript">
+            if ("{{search_input_bool}}" == 'false') {
+                document.getElementById('searchInput').disabled = true
+            }
             music_list = "{{music_list_json}}"
             music_list = music_list.replaceAll('&#39;', '').replaceAll('&#34;', '').replaceAll('.wav', '').replaceAll(']', '').split(',')
             music_list_length = music_list.length
-            musicSelector = document.getElementById('musicSelector')
             for(var i = 0; i < music_list_length; i++) {
                 music_list[i] = music_list[i].substring(1);
-                var temp_option = document.createElement('option')
-                temp_option.innerHTML = music_list[i].replace('\"', '');
-                musicSelector.appendChild(temp_option);
-
-                (function() {
-                    var music_title = music_list[i];
-                    temp_option.addEventListener('click', function() {
-                        searchInput.value = music_title;
-                        musicSelector.style.visibility = 'hidden';
-                        musicSelector.style.display = 'none';
-                        searchInput.focus();
-                    });
-                }());
             }
+            searchHref = document.getElementById('searchHref')
+            searchHref.href = searchHref.href + "?type={{result_href}}"
         </script>
 
         {%with messages = get_flashed_messages()%}

@@ -1,15 +1,23 @@
-span {
-    font-size: 100px;
-    text-align: right;
+h1 {
+    margin-top: 250px;
+    text-align: center;
 }
 
 #musicSelector {
-    width: 40%;
-    display: block;
+    width: 500px;
+    display: inline-block;
+}
+
+#midComponent{
+    width: 100%;
+    text-align: center;
 }
 
 #inputWrapper {
-    width: 40%;
+    margin: 10px;
+    margin-bottom: 0px;
+    width: 500px;
+    height: 35px;
     display: inline-block;
     border: 1px solid black;
     border-radius: 2px;
@@ -20,14 +28,40 @@ span {
     margin-left: 1%;
     margin-right: 1%;
     border-width: 0;
-    width: 98%;
+    width: 96%;
+    font-size: 17px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding-left: 1%;
+    padding-right: 1%;
 }
 
 #searchBtn {
+    width: 12%;
+    height: 30px;
+    margin: 10px;
     display: inline-block;
 }
 
 #upload {
-    display: block;
-    width: 40%
+    margin: 10px;
+    display: inline-block;
+    width: 500px;
+    text-align: left;
+}
+#upload div {
+    margin-bottom: 10px;
+}
+
+a:link, a:visited, a:hover {
+    color: black;
+    text-decoration: none;
+    cursor: default;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
 }

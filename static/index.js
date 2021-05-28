@@ -2,7 +2,7 @@ function selectVisible() {
     var selector = document.getElementById('musicSelector');
     if(selector.style.visibility == 'hidden') {
         selector.style.visibility = 'visible';
-        selector.style.display = 'block';
+        selector.style.display = 'inline-block';
     }
     else {
         selector.style.visibility = 'hidden';
@@ -15,7 +15,7 @@ function searchInputListener() {
     searchInput.addEventListener('click', searchInputChange);
     searchInput.addEventListener('keyup', searchInputChange);
     searchInput.addEventListener('keyup', function(event) {
-        if(event.key == 'Enter') searchBtn()
+        if(event.key == 'Enter') document.getElementById('searchHref').click()
     })
 }
 
@@ -27,7 +27,7 @@ function searchInputChange() {
     else {
         var musicSelector = document.getElementById('musicSelector');
         musicSelector.style.visibility = 'visible';
-        musicSelector.style.display = 'block';
+        musicSelector.style.display = 'inline-block';
         while(musicSelector.hasChildNodes()) {
             musicSelector.removeChild(musicSelector.firstChild);
         }
@@ -43,17 +43,19 @@ function searchInputChange() {
                     musicSelector.style.visibility = 'hidden';
                     musicSelector.style.display = 'none';
                     searchInput.focus();
+                    document.getElementById('searchHref').href = '/result?' + music_title
                 });
             }());
         }
         musicSelector.size = 10;
     }
+    document.getElementById('searchHref').href = '/result?type=' + searchInput.value
 }
 
 function searchParser(searchValue) {
     var musicSelector = document.getElementById('musicSelector');
     musicSelector.style.visibility = 'visible';
-    musicSelector.style.display = 'block';
+    musicSelector.style.display = 'inline-block';
     while(musicSelector.hasChildNodes()) {
         musicSelector.removeChild(musicSelector.firstChild);
     }
@@ -70,6 +72,7 @@ function searchParser(searchValue) {
                     musicSelector.style.visibility = 'hidden';
                     musicSelector.style.display = 'none';
                     searchInput.focus();
+                    document.getElementById('searchHref').href = '/result?' + searchInput.value
                 });
             }());
             if (musicSelector.childElementCount < 10) musicSelector.size = musicSelector.childElementCount
@@ -116,3 +119,6 @@ function searchBtn() {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(data);
 }
+
+
+            

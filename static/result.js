@@ -17,7 +17,11 @@ function searchWithTitle(music_title) {
     console.log(music_title)
 }
 
-function makeResult() {
+function makeResult(search_type) {
+    if(search_type != 'upload') {
+        music_player = document.getElementById('music_player')
+        music_player.src = '/static/music_dataset/' + search_type + '.wav'
+    }
     resultBox = document.getElementById('result_box')
     for(var i = 0; i < predict_list_length; i++) {
         tempTitle = document.createElement('div')

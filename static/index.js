@@ -43,7 +43,7 @@ function searchInputChange() {
                     musicSelector.style.visibility = 'hidden';
                     musicSelector.style.display = 'none';
                     searchInput.focus();
-                    document.getElementById('searchHref').href = '/result?' + music_title
+                    document.getElementById('searchHref').href = '/result?type=' + music_title
                 });
             }());
         }

@@ -22,7 +22,6 @@ def main(upload=None):
         search_input = 'false'
         result_href = 'upload'
     else: status = '좋아하는 노래를 알려주세요!'
-    print(music_list)
     return render_template('index.html', result=status, \
         music_list_json=[music for music in music_list], \
         search_input_bool=search_input, \
@@ -34,7 +33,6 @@ def select_music():
     if request.method == 'POST':
         music_name = request.get_json()['music_name']
     music_info = getMusicInfo(music_name)
-    print(music_info)
     return music_info, 200
 
 # 파일 업로드 후 메인 호출
@@ -51,8 +49,7 @@ def upload_music():
 @app.route('/result')
 def result_page():
     search_type = request.args.get('type')
-    result_list = modelPredict()
-    print([result for result in result_list])
+    result_list = modelPredict(search_type)
     return render_template('result.html', search_type = search_type, \
         predict_result_list = [result for result in result_list])
 

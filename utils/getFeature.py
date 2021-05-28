@@ -18,7 +18,7 @@ def getFeature():
         feature_list.append(feature + '_var')
     feature_list.append('bpm')
 
-    y, sr = librosa.load('output.wav')
+    y, sr = librosa.load('static/output.wav')
     chromagram = librosa.feature.chroma_stft(y, sr=sr, hop_length=512)
     rms = librosa.feature.rms(y)[0]
     spectral_centroids = librosa.feature.spectral_centroid(y, sr=sr)[0]

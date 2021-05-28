@@ -19,8 +19,7 @@ def cut_audio(sound_, sec_start, sec_dur):
 def wavParser():
     file_path = os.getcwd() + '\\upload.wav'
     print(file_path)
-    
-    # 병수형 코드
+
     sound = AudioSegment.from_file(file_path)
     sound_cut = cut_audio(sound, 60, 30)
     try:

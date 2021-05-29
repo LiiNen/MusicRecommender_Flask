@@ -6,6 +6,8 @@
         <title>MR</title>
     </head>
     <body>
+        <div id="loading"></div>
+        
         <h1>Music Recommender</h1>
         
         <div id="midComponent">
@@ -13,7 +15,7 @@
                 <div>{{result}}</div>
                 <form action = "http://localhost:5000/upload" method = "POST" enctype = "multipart/form-data">
                     <input type = "file" name = "file" />
-                    <input type = "submit" value="업로드"/>
+                    <input type = "submit" id = "submit" value="업로드"/>
                 </form>
             </div>
             <br>

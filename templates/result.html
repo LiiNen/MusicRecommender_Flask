@@ -8,9 +8,19 @@
     <body>
         <h1>Music Recommender</h1>
         <div></div>
-        <div>{{search_type}}</div>
-        <audio controls id='music_player'></audio>
-        <div id = 'result_box'></div>
+        <div id="music_wrapper">
+            <div id="music_name">{{search_type}}</div>
+            <audio controls src="{{url_for('static', filename='music_dataset/')}}" id="music_player" style="display: none"></audio>
+        </div>
+        <div id = 'result_box'>
+            <div class='header'>추천 노래 목록</div>
+            <div id = 'listen_component_box' class='component_box'>
+                <div class='header'>듣기 좋은 노래</div>
+            </div>
+            <div id = 'sing_component_box' class='component_box'>
+                <div class='header'>부르기 좋은 노래</div>
+            </div>
+        </div>
 
         <script src="{{url_for('static', filename='result.js')}}"></script>
         <script type="text/javascript">
@@ -21,19 +31,27 @@
             }
             else {
                 searchWithTitle("{{search_type}}")
-                music_player = document.getElementById('music_player')
-                music_player.src = "{{url_for('static', filename='music_dataset/')}}"
+                if(document.getElementById('music_name').innerHTML == "") {
+                    document.getElementById('music_name').innerHTML = "잘못된 접근입니다.";
+                }
+                else {
+                    document.getElementById('music_player').style.display = 'inline-block';
+                }
             }
 
             predict_list = "{{predict_result_list}}"
-            predict_list = predict_list.replaceAll('&#39;', '').replaceAll('&#34;', '').split(',')
+            predict_list = predict_list.replaceAll('&#39;', '').replaceAll('&#34;', '')
+            predict_list = predict_list.substring(0, predict_list.length-1).split(',')
             predict_list_length = predict_list.length
             for(var i = 0; i < predict_list_length; i++) {
                 predict_list[i] = predict_list[i].substring(1)
             }
             console.log(predict_list)
-            if (predict_list_length > 10) predict_list_length = 10
-            makeResult("{{search_type}}")
+            if(predict_list_length == 1 && predict_list[0] == "") console.log('nothing')
+            else {
+                if (predict_list_length > 10) predict_list_length = 10
+                makeResult("{{search_type}}")
+            }
         </script>
 
         {%with messages = get_flashed_messages()%}

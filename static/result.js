@@ -11,7 +11,6 @@ path_index_list = []
 for(var i = 0; i < path_list.length; i++) {
     path_index_list.push(path_list[i].split('_')[0])
 }
-console.log(path_index_list)
 
 function searchWithTitle(music_title) {
     console.log(music_title)
@@ -19,18 +18,26 @@ function searchWithTitle(music_title) {
 
 function makeResult(search_type) {
     if(search_type != 'upload') {
+        var index = path_index_list.indexOf(search_type.split('_')[0])
         music_player = document.getElementById('music_player')
-        music_player.src = '/static/music_dataset/' + search_type + '.wav'
+        music_player.src = '/static/music_dataset/' + path_list[index];
     }
-    resultBox = document.getElementById('result_box')
+    listenComponentBox = document.getElementById('listen_component_box')
+    singComponentBox = document.getElementById('sing_component_box')
     for(var i = 0; i < predict_list_length; i++) {
+        component = document.createElement('div')
+        component.className = 'component'
         tempTitle = document.createElement('div')
-        tempTitle.innerText = predict_list[i]
-        resultBox.appendChild(tempTitle)
+        tempTitle.className = 'title'
+        titleText = predict_list[i].replaceAll('&amp;', '&').substring(predict_list[i].indexOf('_') + 1, predict_list[i].lastIndexOf('.'))
+        tempTitle.innerText = titleText
         tempPlayer = document.createElement('audio')
         tempPlayer.controls = true
-        path_index = path_index_list.indexOf(predict_list[i].split('_')[0])
+        var path_index = path_index_list.indexOf(predict_list[i].split('_')[0])
         tempPlayer.src='/static/music_dataset/' + path_list[path_index]
-        resultBox.appendChild(tempPlayer)
+        component.appendChild(tempTitle)
+        component.appendChild(tempPlayer)
+        listenComponentBox.appendChild(component)
+        if(i < 5) singComponentBox.appendChild(component.cloneNode(true))
     }
 }

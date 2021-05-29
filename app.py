@@ -6,13 +6,14 @@ from utils.wavParser import wavParser
 from werkzeug.utils import secure_filename
 from utils.getFeature import getFeature
 from utils.modelPredict import modelPredict
+import time
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "ABCD"
 
 # 메인
 @app.route('/')
-def main(upload=None):
+def main(upload=None, wav=None, get=None):
     music_list = getMusicList()
 
     search_input = 'true'
@@ -41,15 +42,16 @@ def upload_music():
     if request.method == 'POST':
         f = request.files['file']
         f.save(secure_filename('upload.wav'))
-        wavParser()
-        getFeature()
-    return main(f)
+        wav = wavParser()
+        get = getFeature() # 로딩 필요
+    return main(f, wav, get)
 
 # 결과 페이지 호출
 @app.route('/result')
 def result_page():
     search_type = request.args.get('type')
-    result_list = modelPredict(search_type)
+    result_list = modelPredict(search_type) # 로딩 필요
+    print('result = ', result_list)
     return render_template('result.html', search_type = search_type, \
         predict_result_list = [result for result in result_list])
 

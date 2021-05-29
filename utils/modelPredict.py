@@ -24,7 +24,6 @@ def modelPredict(search_type):
     for i in range(1, 21):
         droplist.append('mfccs_' + str(i) + '_mean')
         droplist.append('mfccs_' + str(i) + '_var')
-    print(search_type)
     if search_type == 'upload':
         output_path='./static/output.csv'
         output_df = pd.read_csv(output_path)
@@ -45,6 +44,8 @@ def modelPredict(search_type):
             if str(df.iloc[i]['Index']) == music_id:
                 print('fiond!')
                 break
+            if i == len(df) - 1:
+                return []
         
         output_df = df.iloc[[i]].copy()
         output_df = output_df.drop(columns=['filename', 'Index'])

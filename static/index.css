@@ -1,3 +1,11 @@
+body {
+    background-image: url(asset/background.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100%;
+    height: 100vh;
+}
+
 h1 {
     margin-top: 250px;
     text-align: center;
@@ -34,6 +42,7 @@ h1 {
     margin-bottom: 8px;
     padding-left: 1%;
     padding-right: 1%;
+    background-color: transparent;
 }
 
 #searchBtn {
@@ -41,6 +50,7 @@ h1 {
     height: 30px;
     margin: 10px;
     display: inline-block;
+    padding: 0px;
 }
 
 #upload {
@@ -59,9 +69,33 @@ a:link, a:visited, a:hover {
     cursor: default;
 }
 
+#searchHref {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+
 input:focus,
 select:focus,
 textarea:focus,
 button:focus {
     outline: none;
+}
+
+#loading {
+    top: 0px;
+    left: 0px;
+    margin: auto;
+    position: absolute;
+    z-index: 1000;
+    height: 100vh;
+    width: 100%;
+    background: url(asset/loading2.gif);
+    background-size: cover;
+    background-color: none;
+    opacity: 50%;
+    cursor: wait;
+    padding: 0;
+    margin: 0;
+    display: none;
 }

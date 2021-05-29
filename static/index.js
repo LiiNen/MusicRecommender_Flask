@@ -121,4 +121,9 @@ function searchBtn() {
 }
 
 
-            
+document.getElementById('submit').addEventListener('click', function() {
+    document.getElementById('loading').style.display = "block";
+})
+document.getElementById('searchBtn').addEventListener('click', function() {
+    document.getElementById('loading').style.display = "block";
+})

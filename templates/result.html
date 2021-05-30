@@ -29,6 +29,7 @@
                 console.log('upload')
                 music_player = document.getElementById('music_player')
                 music_player.src = "{{url_for('static', filename='output.wav')}}"
+                music_player.style = "display: inline-block;"
             }
             else {
                 searchWithTitle("{{search_type}}")

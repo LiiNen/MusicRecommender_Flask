@@ -5,10 +5,9 @@ import pandas as pd
 import os
 
 # 경로와 포맷 지정
-ROOT_PATH = os.path.join(os.path.expanduser("~"), "audio_root/")
-INPUT_PATH = ROOT_PATH + "music_dataset"
-VOCAL_OUT_PATH = ROOT_PATH + "out"
-PREDICT_VOCAL_OUT_PATH = ROOT_PATH + "predict"
+ROOT_PATH = "E://Dataset2"
+INPUT_PATH = os.path.join(ROOT_PATH, "out")
+VOCAL_OUT_PATH = os.path.join(ROOT_PATH, "vocal")
 FORMAT = "wav"
 SAMPLE_RATE = 16000
 
@@ -42,12 +41,17 @@ else:
         if os.path.isfile(
           os.path.join(VOCAL_OUT_PATH, labelname + "_vocals.wav")
         ):
-          print("Skipping", labelname)
+          print("Skipping", file)
           continue
 
-        separator.separate_to_file(
-          target_path,
-          out_path,
-          filename_format=labelname + "_{instrument}.{codec}",
-          synchronous=False,
-        )
+        try:
+          separator.separate_to_file(
+            target_path,
+            VOCAL_OUT_PATH,
+            filename_format=labelname + "_{instrument}.{codec}",
+            synchronous=False,
+          )
+        except Exception as e:
+          print("Error processing file", file)
+          print(e)
+          

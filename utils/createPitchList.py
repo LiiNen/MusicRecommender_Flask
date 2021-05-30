@@ -4,10 +4,9 @@ from tqdm import tqdm
 import crepe
 
 #경로와 포맷 지정
-ROOT_PATH=os.path.join(os.path.expanduser('~'), "audio_root/")
-BASE_PATH = ROOT_PATH+"music_dataset"
-VOCAL_PATH=ROOT_PATH+"out"
-PREDICT_OUT_PATH=ROOT_PATH+"predict"
+ROOT_PATH = "E://Dataset2"
+VOCAL_PATH=os.path.join(ROOT_PATH, "vocal")
+PREDICT_OUT_PAT=+os.path.join(ROOT_PATH, "predict")
 
 # Dataframe for saving result of pitch detection
 pitch_column=['filename', 'pitch_mean', 'pitch_max']

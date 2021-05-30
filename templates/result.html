@@ -16,11 +16,11 @@
         <div id = 'result_box'>
             <div class='header'>추천하는 노래 및<br>하이라이트 미리듣기</div>
             <div id = 'listen_component_box' class='component_box'>
-                <div class='header'>듣기 좋은 노래</div>
+                <!-- <div class='header'>듣기 좋은 노래</div> -->
             </div>
-            <div id = 'sing_component_box' class='component_box'>
+            <!-- <div id = 'sing_component_box' class='component_box'>
                 <div class='header'>부르기 좋은 노래</div>
-            </div>
+            </div> -->
         </div>
 
         <script src="{{url_for('static', filename='result.js')}}"></script>
@@ -32,7 +32,7 @@
                 music_player.style = "display: inline-block;"
             }
             else {
-                searchWithTitle("{{search_type}}")
+                searchTitle = "{{search_type}}"
                 if(document.getElementById('music_name').innerHTML == "") {
                     document.getElementById('music_name').innerHTML = "잘못된 접근입니다.";
                 }

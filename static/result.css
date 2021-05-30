@@ -26,11 +26,10 @@ body {
     height: 100vh;
 }
 #listen_component_box {
-    width: 48%;
-    height: 100vh;
-    margin: 0px;
-    padding: 1%;
-    float: left;
+    width: 1020px;
+    height: 100px;
+    margin: 0 auto;
+    padding: 0px;
 }
 #sing_component_box {
     width: 48%;

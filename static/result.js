@@ -41,3 +41,7 @@ function makeResult(search_type) {
         if(i < 5) singComponentBox.appendChild(component.cloneNode(true))
     }
 }
+
+document.getElementById('main').addEventListener('click', function() {
+    window.location = '/'
+})

@@ -7,8 +7,18 @@ body {
 }
 
 #music_wrapper {
-    margin: 0px;
+    width: 320px;
+    margin: 10px;
     padding: 1%;
+    text-align: center;
+}
+#music_name {
+    width: 300px;
+    margin: 10px;
+}
+.select_title {
+    font-weight: bold;
+    font-size: 18px;
 }
 
 #result_box {
@@ -43,4 +53,9 @@ body {
 }
 .title {
     width: 300px;
+}
+#main {
+    cursor: pointer;
+    margin-top: 30px;
+    margin-left: 30px;
 }

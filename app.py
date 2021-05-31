@@ -2,7 +2,7 @@ import json
 from flask import Flask, render_template, request, flash
 from utils.load import getMusicList
 from utils.load import getMusicInfo
-from utils.wavParser import wavParser
+from utils.wavParser import wavParser2
 from werkzeug.utils import secure_filename
 from utils.getFeature import getFeature
 from utils.modelPredict import modelPredict
@@ -42,8 +42,12 @@ def upload_music():
     if request.method == 'POST':
         f = request.files['file']
         f.save(secure_filename('upload.wav'))
-        wav = wavParser()
+        wav = wavParser2()
         get = getFeature() # 로딩 필요
+        # try:
+        #     separateVocals2()
+        # except Exception as e:
+        #     print('eeeeeeeeeeeeeeeeeee')
     return main(f, wav, get)
 
 # 결과 페이지 호출

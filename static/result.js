@@ -56,13 +56,13 @@ function makeResult(search_type) {
         // if(i < 5) singComponentBox.appendChild(component.cloneNode(true))
     }
     for(var i = 0; i < 5; i++) {
+        if(pitch_finder_list.length == 0) break;
         minValue = Math.min.apply(null, pitch_finder_list)
         tempIndex = pitch_finder_list.indexOf(minValue)
         titleIndex = pitch_finder_index[tempIndex]
         document.getElementById('tempTitle' + String(titleIndex)).style = 'color: orange';
         pitch_finder_index.splice(tempIndex, 1);
         pitch_finder_list.splice(tempIndex, 1);
-        if(pitch_finder_list.length == 0) break;
     }
 }
 

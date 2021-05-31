@@ -4,7 +4,8 @@ from tqdm import tqdm
 import pandas as pd
 import os
 
-def separateVocals2():
+if __name__ == "__main__":
+  print('main')
   separator = Separator("spleeter:2stems")
   file_path = os.getcwd() + '/static/output.wav'
   logging.configure_logger(False)
@@ -18,5 +19,4 @@ def separateVocals2():
       synchronous=True,
     )
   except Exception as e:
-      print('Error processing', e)
-  return
+    print('Error processing', e)

@@ -90,19 +90,28 @@ button:focus {
 }
 
 #loading {
-    top: -300px;
+    top: 0px;
     margin: auto;
     position: absolute;
     z-index: 1000;
     width: 100%;
-    height: 150vh;
+    height: 100vh;
     background-image: url(asset/loading2.gif);
     background-repeat: no-repeat;
     background-size: cover;
     background-color: transparent;
+    background-position: center;
     opacity: 50%;
     cursor: wait;
     padding: 0;
     margin: 0;
     display: none;
+}
+
+#up_file {
+    width: 530px;
+}
+
+#up_submit {
+    float: right;
 }

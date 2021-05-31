@@ -7,6 +7,8 @@ from werkzeug.utils import secure_filename
 from utils.getFeature import getFeature
 from utils.modelPredict import modelPredict
 import time
+import os
+from utils.createPitchList2 import createPitchList2
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "ABCD"
@@ -36,6 +38,7 @@ def select_music():
     music_info = getMusicInfo(music_name)
     return music_info, 200
 
+pitch_mean_max = []
 # 파일 업로드 후 메인 호출
 @app.route('/upload', methods = ['GET', 'POST'])
 def upload_music():
@@ -43,11 +46,9 @@ def upload_music():
         f = request.files['file']
         f.save(secure_filename('upload.wav'))
         wav = wavParser2()
+        os.system('python utils/separateVocals2.py')
         get = getFeature() # 로딩 필요
-        # try:
-        #     separateVocals2()
-        # except Exception as e:
-        #     print('eeeeeeeeeeeeeeeeeee')
+        pitch_mean_max = createPitchList2()
     return main(f, wav, get)
 
 # 결과 페이지 호출
@@ -57,7 +58,8 @@ def result_page():
     result_list = modelPredict(search_type) # 로딩 필요
     print('result = ', result_list)
     return render_template('result.html', search_type = search_type, \
-        predict_result_list = [result for result in result_list])
+        predict_result_list = [result for result in result_list], \
+        mean_max = pitch_mean_max)
 
 if __name__=='__main__':
     app.run(debug=True)

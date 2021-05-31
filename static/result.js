@@ -11,7 +11,7 @@ function makeResult(search_type) {
     my_pitch = [];
     if(search_type != 'upload') {
         search_type_index = search_type.split('_')[0];
-        while(search_type_index[0] == '0') search_type_index = search_type_index.substring(1);
+        while(search_type_index[0] == '0' && search_type_index.length > 1) search_type_index = search_type_index.substring(1);
         var index = path_index_list.indexOf(search_type.split('_')[0]);
         music_player = document.getElementById('music_player');
         music_player.src = '/static/3400/music_dataset/' + path_list[index];
@@ -38,7 +38,7 @@ function makeResult(search_type) {
         tempTitle = document.createElement('div')
         tempTitle.id = 'tempTitle' + String(i)
         tempTitle.className = 'title'
-        console.log(predict_index)
+        // console.log(predict_index)
         while(predict_index.length < 4) predict_index = '0' + predict_index
         if(my_pitch[0] != -1 && my_pitch[1] != -1 && my_pitch[1] > pitch_list[predict_index][1] && pitch_list[predict_index][0] != -1) {
             pitch_finder_list.push(Math.abs(my_pitch[0] - pitch_list[predict_index][1]));

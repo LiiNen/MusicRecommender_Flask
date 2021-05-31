@@ -9,11 +9,7 @@ ROOT_PATH = "E://Dataset2"
 INPUT_PATH = os.path.join(ROOT_PATH, "out")
 VOCAL_OUT_PATH = os.path.join(ROOT_PATH, "vocal")
 FORMAT = "wav"
-SAMPLE_RATE = 16000
-
-# Dataframe for saving result of pitch detection
-pitch_column = ["filename", "pitch_mean", "pitch_max"]
-pitch_result = pd.DataFrame([], columns=pitch_column)
+SAMPLE_RATE = 16000      #RECOMMENDED: 16000 for using in pitch detection
 
 if not os.path.isdir(VOCAL_OUT_PATH):
   os.mkdir(VOCAL_OUT_PATH)

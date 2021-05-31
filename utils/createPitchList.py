@@ -1,16 +1,21 @@
-from crepe.core import predict
 import pandas as pd
 import os
 import copy
 from tqdm import tqdm
 import crepe
 
-#경로와 포맷 지정
+### 경로와 포맷 지정 ###
+# IMPORTANT:
+# Windows의 경우 경로를 '\\' 기호를 사용해야만 에러가 발생하지 않음, 
+# r'path', '\', '/' 사용불가
+
 ROOT_PATH = "E:\\Dataset2"
 VOCAL_PATH=os.path.join(ROOT_PATH, "vocal")
-PREDICT_OUT_PATH=os.path.join(ROOT_PATH, "predict")
+PREDICT_OUT_PATH=os.path.join(ROOT_PATH, "predict_full")
 PREDICT_RESULT_PATH=ROOT_PATH
-REFINE_OUT_PATH=None
+REFINE_OUT_PATH=os.path.join(ROOT_PATH, "refine_full")
+#MODEL_SIZE: "tiny", "small", "medium", "large", "full"중 선택
+MODEL_SIZE="full"
 
 # Dataframe for saving result of pitch detection
 pitch_column=['filename', 'pitch_mean', 'pitch_max']
@@ -67,16 +72,16 @@ def refinePredict(path, refine_out_path=None):
       predict_val=pd.read_csv(os.path.join(root, file))
 
       # 데이터 정제:
-      # C2(65Hz) ~ A5(880Hz)를 벗어나는 값 버림
+      # C2(65Hz) ~ G5(784Hz)를 벗어나는 값 버림
       predict_val.loc[predict_val.frequency<65, 'frequency']=None
-      predict_val.loc[predict_val.frequency>880, 'frequency']=None
+      predict_val.loc[predict_val.frequency>784, 'frequency']=None
 
-      # confidance 값이 0.5 이하일 경우 해당 pitch값 버림
+      # confidance 값이 0.7 이하일 경우 해당 pitch값 버림
       predict_val.loc[predict_val.confidence<0.5, 'frequency']=None
 
       # refine_out_path 파라미터가 존재할 경우 정제값 csv로 저장
       if refine_out_path is not None:
-        predict_val.to_csv(os.path.join(refine_out_path, labelname)+".csv")
+        predict_val.to_csv(os.path.join(refine_out_path, labelname)+".csv", mode='w', encoding="utf-8-sig")
 
       pitch_mean=predict_val['frequency'].mean()
       pitch_max=predict_val['frequency'].max()
@@ -107,10 +112,10 @@ def predictPitch(path, out_path, model_size, verbose=False):
       files.remove('.DS_Store')
 
     skip_n=0
+    skip_duplicates=0
     files_n=copy.deepcopy(files)
     
     for file in files:
-      
       # vocal 파일만 탐색
       if not "_vocals" in file:
         files_n.remove(file)
@@ -119,28 +124,30 @@ def predictPitch(path, out_path, model_size, verbose=False):
       elif "_accompaniment" in file:
         files_n.remove(file)
         skip_n+=1
-    
-    # 로그 출력
-    if verbose and skip_n>0 :
-      print("Skipped %d files" %skip_n)
-
-    print("Start predicting pitch for %d files..." %(len(files)-skip_n))
-    
-    # 파일 처리
-    for file in tqdm(files_n):
-      target_path=os.path.join(root, file)
       
       #이미 예측결과 파일이 있는지 확인해서 제외
       labelname, ext = os.path.splitext(file)
       if os.path.isfile(os.path.join(out_path, labelname+".f0.csv")):
         print("Result exists, skipping", file)
-        continue
+        files_n.remove(file)
+        skip_duplicates+=1
+
+    # 로그 출력
+    if verbose and skip_n>0 :
+      print("Skipped %d files," %(skip_n+skip_duplicates))
+      print("Not vocal file: %d, Result exists: %d" %(skip_n, skip_duplicates))
+
+    print("Start predicting pitch for %d files..." %(len(files)-skip_n-skip_duplicates))
+    
+    # 파일 처리
+    for file in tqdm(files_n):
+      target_path=os.path.join(root, file)
 
       #seperate vocal and detect pitch 
-      try:
+      # try:
         #add following line in core.py in crepe to ignore true_divide error
         # np.seterr(divide='ignore', invalid='ignore')
-        crepe.process_file(target_path,
+      crepe.process_file(target_path,
                         output=out_path,
                         model_capacity=model_size,
                         save_activation=False,
@@ -149,20 +156,26 @@ def predictPitch(path, out_path, model_size, verbose=False):
                         step_size=100,
                         viterbi=True,
                         verbose=False)
-      except Exception as e:
-        print("prediction failed:", file)
-        print(e)
-        continue
-
-if not os.path.isdir(VOCAL_PATH):
-  print("No such input directory: %s" %VOCAL_PATH)
+      # except Exception as e:
+      #   print("prediction failed:", file)
+      #   print(e)
+      #   continue
 
 if not os.path.isdir(PREDICT_OUT_PATH):
   os.mkdir(PREDICT_OUT_PATH)
 
+if not os.path.isdir(PREDICT_RESULT_PATH):
+  os.mkdir(PREDICT_RESULT_PATH)
+
+if not os.path.isdir(REFINE_OUT_PATH):
+  os.mkdir(REFINE_OUT_PATH)
+
+if not os.path.isdir(VOCAL_PATH):
+  print("No such input directory: %s" %VOCAL_PATH)
+
 #BASE_PATH 내의 vocal 파일들에 대해 변환 수행
 else:
-  predictPitch(VOCAL_PATH, PREDICT_OUT_PATH, "tiny", verbose=True)
+  predictPitch(VOCAL_PATH, PREDICT_OUT_PATH, MODEL_SIZE, verbose=True)
   pitch_result=refinePredict(PREDICT_OUT_PATH, REFINE_OUT_PATH)
-  pitch_result.to_csv(os.path.join(PREDICT_OUT_PATH, "pitch_result.csv"), mode='w', encoding="utf-8-sig")
+  pitch_result.to_csv(os.path.join(PREDICT_RESULT_PATH, "pitch_result.csv"), mode='w', encoding="utf-8-sig")
   print("Pitch prediction result saved")

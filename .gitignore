@@ -10,3 +10,5 @@ test
 model
 *.ipynb
 pretrained_models/
+debug.log
+test.py

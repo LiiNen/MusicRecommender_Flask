@@ -10,11 +10,11 @@
 
 ## Using Audio Utilities
 ```
-오디오 처리에 사용하는 Spleeter와 Crepe는 **Tensorflow**와 **Keras**를 사용하므로
+오디오 처리에 사용하는 Spleeter와 Crepe는 Tensorflow**와 Keras를 사용하므로
 가상환경을 사용중일 경우 반드시 고려해주세요!
 ```
 - FFmpeg 설치: <https://hello-bryan.tistory.com/230> 링크 참조
-- WAV 변환: utils/wavParser.py
+### utils/wavParser.py
   - 기능
     - 지정한 디렉토리 내의 오디오 파일을 원하는 길이만큼 편집
     - 지정한 디렉토리 내의 오디오 파일을 WAV로 변환
@@ -22,14 +22,14 @@
     - ROOT_PATH: 상위 폴더 경로 지정
     - BASE_INPUT_PATH: ROOT_PATH 아래의 원본 폴더명
     - BASE_OUTPUT_PATH: 변환한 WAV 출력할 폴더명
-- 보컬 분리: utils/separateVocals.py
+### utils/separateVocals.py
  - 기능
    - Spleeter를 사용하여 지정한 디렉토리 내의 오디오 파일을 보컬과 배경음악으로 분리
  - 변수
     - ROOT_PATH: 상위 폴더 경로 지정
     - INPUT_PATH: ROOT_PATH 아래의 WAV파일 폴더명
     - VOCAL_OUT_PATH: 보컬 분리한 파일 출력할 폴더명
-- 음정 분석: utils/createPitchList.py
+### utils/createPitchList.py
  - 기능
    - Crepe를 사용하여 지정한 디렉토리 내의 오디오 파일의 Pitch값을 0.1초 단위로 분석
    - 분석결과 csv로 저장

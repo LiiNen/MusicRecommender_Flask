@@ -1,9 +1,10 @@
 body {
-    background-image: url(asset/background.png);
+    background-image: url(asset/background3.png);
     background-repeat: no-repeat;
     background-size: contain;
     width: 100%;
     height: 100vh;
+    background-position: center;
 }
 
 h1 {
@@ -46,11 +47,17 @@ h1 {
 }
 
 #searchBtn {
-    width: 105px;
-    height: 30px;
+    width: 113px;
+    height: 62px;
     margin: 10px;
     display: inline-block;
     padding: 0px;
+    background-image: url('asset/searchBtn.png');
+    background-size: cover;
+    background-position: center;
+    border: 0px;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 #upload {
@@ -66,7 +73,7 @@ h1 {
 a:link, a:visited, a:hover {
     color: black;
     text-decoration: none;
-    cursor: default;
+    cursor: pointer;
 }
 
 #searchHref {

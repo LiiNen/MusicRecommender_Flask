@@ -30,7 +30,7 @@ function makeResult(search_type) {
     pitch_finder_index = []
     for(var i = 0; i < predict_list_length; i++) {
         predict_index = predict_list[i].split('_')[0]
-        if(searchTitle.split('_')[0] == predict_index) {
+        if(search_type != 'upload' && searchTitle.split('_')[0] == predict_index) {
             continue
         }
         component = document.createElement('div')

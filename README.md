@@ -26,14 +26,14 @@ python app.py
     - BASE_OUTPUT_PATH: 변환한 WAV 출력할 폴더명
 ### utils/separateVocals.py
  - 기능
-   - Spleeter를 사용하여 지정한 디렉토리 내의 오디오 파일을 보컬과 배경음악으로 분리
+   - [Spleeter](https://github.com/deezer/spleeter)를 사용하여 지정한 디렉토리 내의 오디오 파일을 보컬과 배경음악으로 분리
  - 변수
     - ROOT_PATH: 상위 폴더 경로 지정
     - INPUT_PATH: ROOT_PATH 아래의 WAV파일 폴더명
     - VOCAL_OUT_PATH: 보컬 분리한 파일 출력할 폴더명
 ### utils/createPitchList.py
  - 기능
-   - Crepe를 사용하여 지정한 디렉토리 내의 오디오 파일의 Pitch값을 0.1초 단위로 분석
+   - [Crepe](https://github.com/marl/crepe)를 사용하여 지정한 디렉토리 내의 오디오 파일의 Pitch값을 0.1초 단위로 분석
    - 분석결과 csv로 저장
    - 분석결과에서 더 나은 결과를 위해 데이터 정제 (Optional: 정제값 csv로 저장)
    - 분석결과(혹은 정제결과)를 바탕으로 Pitch mean, max값을 산출하여 단일 csv로 저장

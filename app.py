@@ -9,6 +9,7 @@ from utils.modelPredict import modelPredict
 import time
 import os
 from utils.createPitchList2 import createPitchList2
+from utils.createPitchList2 import getPitch
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "ABCD"
@@ -48,7 +49,8 @@ def upload_music():
         wav = wavParser2()
         os.system('python utils/separateVocals2.py')
         get = getFeature() # 로딩 필요
-        pitch_mean_max = createPitchList2()
+        createPitchList2()
+        print('여기여기여기', pitch_mean_max)
     return main(f, wav, get)
 
 # 결과 페이지 호출
@@ -56,10 +58,10 @@ def upload_music():
 def result_page():
     search_type = request.args.get('type')
     result_list = modelPredict(search_type) # 로딩 필요
-    print('result = ', result_list)
+    pitch_mean_max = getPitch()
     return render_template('result.html', search_type = search_type, \
         predict_result_list = [result for result in result_list], \
-        mean_max = pitch_mean_max)
+        mean_max = [pitch for pitch in pitch_mean_max])
 
 if __name__=='__main__':
     app.run(debug=True)

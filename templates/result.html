@@ -10,26 +10,37 @@
         <div></div>
         <div id="music_wrapper">
             <div class='select_title'>선택한 노래의 하이라이트</div>
-            <div id="music_name">{{search_type}}</div>
-            <audio controls id="music_player" style="display: none"></audio>
+            <div class='main_music_wrapper'>
+                <div id="music_name">{{search_type}}</div>
+                <audio controls id="music_player" style="display: none"></audio>
+            </div>
+            <div class='main_music_wrapper'>
+                <div id="music_name2" style="display: none">보컬만 듣기</div>
+                <audio controls id="music_player2" style="display: none"></audio>
+            </div>
         </div>
         <div id = 'result_box'>
             <div class='header'>추천하는 노래 및<br>하이라이트 미리듣기</div>
             <div id = 'listen_component_box' class='component_box'>
                 <!-- <div class='header'>듣기 좋은 노래</div> -->
             </div>
-            <!-- <div id = 'sing_component_box' class='component_box'>
-                <div class='header'>부르기 좋은 노래</div>
-            </div> -->
         </div>
-
+        <script type="text/javascript">
+            tempmean = "{{mean_max}}"
+            tempmean = tempmean.replaceAll('&#39;', '').replaceAll('[', '').replaceAll(']', '').replaceAll(' ', '').split(',')
+            console.log(tempmean[0], tempmean[1])
+        </script>
         <script src="{{url_for('static', filename='result.js')}}"></script>
         <script type="text/javascript">
             if ("{{search_type}}" == 'upload') {
-                console.log('upload')
+                document.getElementById('music_name').innerText = '하이라이트 듣기'
                 music_player = document.getElementById('music_player')
                 music_player.src = "{{url_for('static', filename='output.wav')}}"
-                music_player.style = "display: inline-block;"
+                music_player.style = "display: block;"
+                music_player2 = document.getElementById('music_player2')
+                music_player2.src = "{{url_for('static', filename='output_vocals.wav')}}"
+                music_player2.style = "display: block;"
+                document.getElementById('music_name2').style = 'display: block'
             }
             else {
                 searchTitle = "{{search_type}}"
@@ -54,8 +65,6 @@
                 if (predict_list_length > 10) predict_list_length = 10
                 makeResult("{{search_type}}")
             }
-            tempmean = "{{mean_max}}"
-            console.log(tempmean)
         </script>
 
         {%with messages = get_flashed_messages()%}

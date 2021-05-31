@@ -8,15 +8,23 @@ body {
 }
 
 #music_wrapper {
-    width: 320px;
     margin: 10px;
     padding: 1%;
     text-align: center;
 }
-#music_name {
-    width: 300px;
-    margin: 10px;
+.main_music_wrapper {
+    display: inline-block;
 }
+#music_name, #music_name2 {
+    width: 300px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#music_player1, #music_player2 {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .select_title {
     font-weight: bold;
     font-size: 18px;

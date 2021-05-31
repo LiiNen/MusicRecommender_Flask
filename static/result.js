@@ -20,8 +20,8 @@ function makeResult(search_type) {
         console.log(my_pitch)
     }
     else {
-        my_pitch.push(-1)
-        my_pitch.push(-1)
+        my_pitch.push(parseFloat(tempmean[0]))
+        my_pitch.push(parseFloat(tempmean[1]))
         console.log(my_pitch)
     }
     listenComponentBox = document.getElementById('listen_component_box')

@@ -10,7 +10,7 @@
 
 ## Using Audio Utilities
 ```
-오디오 처리에 사용하는 Spleeter와 Crepe는 Tensorflow**와 Keras를 사용하므로
+오디오 처리에 사용하는 Spleeter와 Crepe는 Tensorflow와 Keras를 사용하므로
 가상환경을 사용중일 경우 반드시 고려해주세요!
 ```
 - FFmpeg 설치: <https://hello-bryan.tistory.com/230> 링크 참조

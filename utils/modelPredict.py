@@ -11,10 +11,10 @@ for feature in feature_name:
     feature_list.append(feature + '_var')
 feature_list.append('bpm')
 
-xgb_PATH='./model/xgb.tar'
-K_Fold_PATH='./model/K_Fold.tar'
+xgb_PATH='./model/xgb_2.tar'
+K_Fold_PATH='./model/K_Fold_2.tar'
 xgb=torch.load(xgb_PATH)
-csv_PATH='./model/result50.csv'
+csv_PATH='./model/result50_2.csv'
 df = pd.read_csv(csv_PATH)
 
 K_Fold=torch.load(K_Fold_PATH)
@@ -29,7 +29,7 @@ def modelPredict(search_type):
         output_df = pd.read_csv(output_path)
         output_df = output_df.drop(droplist, axis=1)
 
-        dataset = pd.read_csv('./utils/dataset.csv', encoding='cp949')
+        dataset = pd.read_csv('./utils/dataset_new.csv')
         dataset = dataset.drop(columns=['filename', 'length'])
         dataset = dataset.drop(droplist, axis=1)
         scaler = MinMaxScaler()
@@ -41,7 +41,7 @@ def modelPredict(search_type):
     else:
         music_id = search_type.split('_')[0]
         for i in range(0, len(df)):
-            if str(df.iloc[i]['Index']) == music_id:
+            if str(df.iloc[i]['Index']).zfill(4) == music_id:
                 print('fiond!')
                 break
             if i == len(df) - 1:

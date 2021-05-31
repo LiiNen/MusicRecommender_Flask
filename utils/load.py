@@ -9,7 +9,7 @@ import pandas as pd
 from sklearn.cluster import KMeans
 from scipy.spatial.distance import cdist
 
-data = pd.read_csv('./utils/dataset.csv', encoding='cp949')
+data = pd.read_csv('./utils/dataset_new.csv')
 
 def getMusicList():    
     music_list = data['filename'].values.tolist()

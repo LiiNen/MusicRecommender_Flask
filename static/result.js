@@ -57,8 +57,9 @@ function makeResult(search_type) {
         component.appendChild(tempTitle)
         component.appendChild(tempPlayer)
         listenComponentBox.appendChild(component)
-        // if(i < 5) singComponentBox.appendChild(component.cloneNode(true))
     }
+
+    //최대 5개까지만 추천하도록
     for(var i = 0; i < 5; i++) {
         if(pitch_finder_list.length == 0) break;
         minValue = Math.min.apply(null, pitch_finder_list)

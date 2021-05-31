@@ -1,13 +1,15 @@
 # MusicRecommender_Flask
 ## Initiation
- - git clone
- - cd project
- - pip install -r requirements.txt
-
+```bash
+git clone
+cd project
+pip install -r requirements.txt
+```
 ## Web development
- - set FLASK_ENV=development
- - python app.py
-
+```bash
+set FLASK_ENV=development
+python app.py
+```
 ## Using Audio Utilities
 ```
 오디오 처리에 사용하는 Spleeter와 Crepe는 Tensorflow와 Keras를 사용하므로

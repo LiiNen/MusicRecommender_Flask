@@ -10,13 +10,17 @@ for(var i = 0; i < path_list.length; i++) {
 function makeResult(search_type) {
     my_pitch = [];
     if(search_type != 'upload') {
+        search_type_index_origin = search_type.split('_')[0];
         search_type_index = search_type.split('_')[0];
-        while(search_type_index[0] == '0' && search_type_index.length > 1) search_type_index = search_type_index.substring(1);
+        while(search_type_index[0] == '0' && search_type_index.length > 1) {
+            console.log(search_type_index)
+            search_type_index = search_type_index.substring(1);
+        }
         var index = path_index_list.indexOf(search_type.split('_')[0]);
         music_player = document.getElementById('music_player');
         music_player.src = '/static/3400/music_dataset/' + path_list[index];
-        my_pitch.push(pitch_list[search_type_index][0])
-        my_pitch.push(pitch_list[search_type_index][1])
+        my_pitch.push(pitch_list[search_type_index_origin][0])
+        my_pitch.push(pitch_list[search_type_index_origin][1])
         console.log(my_pitch)
     }
     else {

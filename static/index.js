@@ -72,7 +72,7 @@ function searchParser(searchValue) {
                     musicSelector.style.visibility = 'hidden';
                     musicSelector.style.display = 'none';
                     searchInput.focus();
-                    document.getElementById('searchHref').href = '/result?' + searchInput.value
+                    document.getElementById('searchHref').href = '/result?type=' + searchInput.value
                 });
             }());
             if (musicSelector.childElementCount < 10) musicSelector.size = musicSelector.childElementCount

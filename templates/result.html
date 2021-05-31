@@ -48,7 +48,8 @@
                     document.getElementById('music_name').innerHTML = "잘못된 접근입니다.";
                 }
                 else {
-                    document.getElementById('music_player').style.display = 'inline-block';
+                    document.getElementById('music_player').style.display = 'block';
+                    document.getElementById('music_name').innerText = document.getElementById('music_name').innerText.substring(5)
                 }
             }
 

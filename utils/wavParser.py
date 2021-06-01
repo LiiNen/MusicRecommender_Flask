@@ -4,9 +4,9 @@ from tqdm import tqdm
 import os
 
 FORMAT = "wav"
-ROOT_PATH = "I://Dataset2"
-BASE_INPUT_PATH = os.path.join(ROOT_PATH, "original")
-BASE_OUTPUT_PATH = os.path.join(ROOT_PATH, "out")
+ROOT_PATH = "E:\\Dataset2"
+BASE_INPUT_PATH = os.path.join(ROOT_PATH, "vocal")
+BASE_OUTPUT_PATH = os.path.join(ROOT_PATH, "vocal_compressed")
 SAMPLE_RATE = 16000
 t_sec = 1000
 t_min = t_sec * 60
@@ -79,7 +79,18 @@ def cut_audio(sound_, sec_start, sec_dur=30, option=0):
     return sound_
 
 
-def wavParser():
+def wavParser(read_meta=True):
+  """BASE_PATH 내의 파일을 WAV로 변환
+
+  Parameters
+  ----------
+    read_meta: 오디오 metadata를 읽어 다음과 같은 형식의 파일명으로 지정할지 여부
+    {nnnn_Artist_Title.wav}
+
+  Returns
+  ----------
+
+"""
   for root, dirs, files in os.walk(BASE_INPUT_PATH):
     if ".DS_Store" in files:
       files.remove(".DS_Store")
@@ -88,18 +99,23 @@ def wavParser():
     for n, file in enumerate(tqdm(files)):
       target_path = os.path.join(root, file)
       sound_name = getName(target_path, n)
-      out_path = os.path.join(BASE_OUTPUT_PATH, sound_name + "." + FORMAT)
+      labelname, ext = os.path.splitext(file)
       
+      if read_meta:
+        out_path = os.path.join(BASE_OUTPUT_PATH, sound_name + "." + FORMAT)
+      else:
+        out_path=os.path.join(BASE_OUTPUT_PATH, file)
+
       # 이름 출력에 문제없고 이미 변환된 파일이 out폴더에 존재할 경우 변환 SKIP
       if os.path.isfile(out_path):
         print("Skipping", file)
         continue
 
       sound = AudioSegment.from_file(target_path)
-      sound_cut = cut_audio(sound, 50, 40)
+      #sound_cut = cut_audio(sound, 50, 40)
 
       try:
-        sound_cut.export(
+        sound.export(
           out_path,
           format=FORMAT,
           tags=mediainfo(target_path)["TAG"],
@@ -135,4 +151,4 @@ if __name__ == "__main__":
         print("Create new output directory:", BASE_OUTPUT_PATH)
         os.mkdir(BASE_OUTPUT_PATH)
 
-      wavParser()
+      wavParser(read_meta=False)

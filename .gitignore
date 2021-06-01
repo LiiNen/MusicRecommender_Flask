@@ -12,3 +12,4 @@ model
 pretrained_models/
 debug.log
 test.py
+*.zip

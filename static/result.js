@@ -7,6 +7,13 @@ for(var i = 0; i < path_list.length; i++) {
     path_index_list.push(path_list[i].split('_')[0])
 }
 
+function vocalOn(search_type) {
+    music_player2 = document.getElementById('music_player2');
+    music_player2.src = '/static/3400/vocal_dataset/' + search_type + 'vocals.wav';
+    music_player2.style = "display: block;";
+    document.getElementById('music_name2').style = 'display: block';
+}
+
 function makeResult(search_type) {
     my_pitch = [];
     if(search_type != 'upload') {

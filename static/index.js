@@ -61,7 +61,7 @@ function searchParser(searchValue) {
     }
     var searchValue_length = searchValue.length;
     for(var i = 0; music_list[i]; i++) {
-        if (music_list[i].includes(searchValue)) {
+        if (music_list[i].toLowerCase().includes(searchValue)) {
             var temp_option = document.createElement('option')
             temp_option.innerHTML = music_list[i].replace('\"', '');
             musicSelector.appendChild(temp_option);

@@ -32,6 +32,7 @@ function makeResult(search_type) {
     singComponentBox = document.getElementById('sing_component_box')
     pitch_finder_list = []
     pitch_finder_index = []
+    console.log(predict_list)
     for(var i = 0; i < predict_list_length; i++) {
         predict_index = predict_list[i].split('_')[0]
         if(search_type != 'upload' && searchTitle.split('_')[0] == predict_index) {
@@ -42,7 +43,7 @@ function makeResult(search_type) {
         tempTitle = document.createElement('div')
         tempTitle.id = 'tempTitle' + String(i)
         tempTitle.className = 'title'
-        // console.log(predict_index)
+        console.log(predict_index)
         while(predict_index.length < 4) predict_index = '0' + predict_index
         if(my_pitch[0] != -1 && my_pitch[1] != -1 && my_pitch[1] > pitch_list[predict_index][1] && pitch_list[predict_index][0] != -1) {
             pitch_finder_list.push(Math.abs(my_pitch[0] - pitch_list[predict_index][1]));

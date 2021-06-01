@@ -60,8 +60,6 @@ def XGB(data):
     return recommends
 
 def RF(data):
-    print(data)
-    csv_PATH='./model/result50.csv'
     df = pd.read_csv(csv_PATH)
 
     input_df=pd.DataFrame(data, columns=feature_list)

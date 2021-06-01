@@ -50,7 +50,6 @@ def upload_music():
         os.system('python utils/separateVocals2.py')
         get = getFeature() # 로딩 필요
         createPitchList2()
-        print('여기여기여기', pitch_mean_max)
     return main(f, wav, get)
 
 # 결과 페이지 호출

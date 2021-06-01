@@ -9,7 +9,7 @@ for(var i = 0; i < path_list.length; i++) {
 
 function vocalOn(search_type) {
     music_player2 = document.getElementById('music_player2');
-    music_player2.src = '/static/3400/vocal_dataset/' + search_type + 'vocals.wav';
+    music_player2.src = '/static/3400/vocal_dataset/' + search_type + '_vocals.wav';
     music_player2.style = "display: block;";
     document.getElementById('music_name2').style = 'display: block';
 }
@@ -68,12 +68,13 @@ function makeResult(search_type) {
     }
 
     //최대 5개까지만 추천하도록
-    for(var i = 0; i < 5; i++) {
+    for(var i = 0; i < 200; i++) {
         if(pitch_finder_list.length == 0) break;
         minValue = Math.min.apply(null, pitch_finder_list)
         tempIndex = pitch_finder_list.indexOf(minValue)
         titleIndex = pitch_finder_index[tempIndex]
-        document.getElementById('tempTitle' + String(titleIndex)).style = 'color: orange';
+        tempTitle = document.getElementById('tempTitle' + String(titleIndex))
+        tempTitle.innerText = '👍 ' + tempTitle.innerText;
         pitch_finder_index.splice(tempIndex, 1);
         pitch_finder_list.splice(tempIndex, 1);
     }

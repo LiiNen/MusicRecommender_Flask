@@ -4,6 +4,8 @@
 git clone
 cd project
 pip install -r requirements.txt
+(macOS일 경우)
+brew install libomp
 ```
 ## Web development
 ```bash

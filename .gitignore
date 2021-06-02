@@ -12,3 +12,4 @@ pretrained_models/
 debug.log
 test.py
 *.zip
+.DS_store

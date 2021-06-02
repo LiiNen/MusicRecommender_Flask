@@ -4,9 +4,9 @@ from tqdm import tqdm
 import os
 
 FORMAT = "wav"
-ROOT_PATH = "E:\\Dataset2"
-BASE_INPUT_PATH = os.path.join(ROOT_PATH, "vocal")
-BASE_OUTPUT_PATH = os.path.join(ROOT_PATH, "vocal_compressed")
+ROOT_PATH = "/Users/raonsol/audio_root"
+BASE_INPUT_PATH = os.path.join(ROOT_PATH, "test")
+BASE_OUTPUT_PATH = os.path.join(ROOT_PATH, "wav")
 SAMPLE_RATE = 16000
 t_sec = 1000
 t_min = t_sec * 60
@@ -98,13 +98,11 @@ def wavParser(read_meta=True):
     # 파일 처리
     for n, file in enumerate(tqdm(files)):
       target_path = os.path.join(root, file)
-      sound_name = getName(target_path, n)
       labelname, ext = os.path.splitext(file)
       
       if read_meta:
-        out_path = os.path.join(BASE_OUTPUT_PATH, sound_name + "." + FORMAT)
-      else:
-        out_path=os.path.join(BASE_OUTPUT_PATH, file)
+        labelname=getName(target_path, n)
+      out_path = os.path.join(BASE_OUTPUT_PATH, labelname + "." + FORMAT)
 
       # 이름 출력에 문제없고 이미 변환된 파일이 out폴더에 존재할 경우 변환 SKIP
       if os.path.isfile(out_path):
@@ -112,10 +110,10 @@ def wavParser(read_meta=True):
         continue
 
       sound = AudioSegment.from_file(target_path)
-      #sound_cut = cut_audio(sound, 50, 40)
+      sound_cut = cut_audio(sound, 50, 40)
 
       try:
-        sound.export(
+        sound_cut.export(
           out_path,
           format=FORMAT,
           tags=mediainfo(target_path)["TAG"],
@@ -139,7 +137,6 @@ def wavParser2():
     return
 
 
-
 if __name__ == "__main__":
   if not os.path.isdir(ROOT_PATH):
     print("No such directory:", ROOT_PATH)
@@ -151,4 +148,4 @@ if __name__ == "__main__":
         print("Create new output directory:", BASE_OUTPUT_PATH)
         os.mkdir(BASE_OUTPUT_PATH)
 
-      wavParser(read_meta=False)
+      wavParser(read_meta=True)

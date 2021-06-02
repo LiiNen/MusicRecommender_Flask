@@ -1,6 +1,5 @@
 test
 *pycache*
-*.csv
 *train.py
 *.idea
 *.vscode

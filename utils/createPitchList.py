@@ -9,11 +9,11 @@ import crepe
 # Windows의 경우 경로를 '\\' 기호를 사용해야만 에러가 발생하지 않음, 
 # r'path', '\', '/' 사용불가
 
-ROOT_PATH = "E:\\Dataset2"
-VOCAL_PATH=os.path.join(ROOT_PATH, "vocal")
-PREDICT_OUT_PATH=os.path.join(ROOT_PATH, "predict_full")
+ROOT_PATH = "/Users/raonsol/audio_root"
+VOCAL_PATH=os.path.join(ROOT_PATH, "wav")
+PREDICT_OUT_PATH=os.path.join(ROOT_PATH, "predict")
 PREDICT_RESULT_PATH=ROOT_PATH
-REFINE_OUT_PATH=os.path.join(ROOT_PATH, "refine_full")
+REFINE_OUT_PATH=os.path.join(ROOT_PATH, "refine")
 #MODEL_SIZE: "tiny", "small", "medium", "large", "full"중 선택
 MODEL_SIZE="full"
 
@@ -67,7 +67,14 @@ def refinePredict(path, refine_out_path=None):
   pitch_result=pd.DataFrame([], columns=pitch_column)
   for root, dirs, files in os.walk(path):
     print("Exporting prediction results...")
-    for file in tqdm(files):
+
+    files_n=copy.deepcopy(files)
+    for file in files:
+        # csv 파일만 탐색
+        if not ".csv" in file:
+          files_n.remove(file)
+
+    for file in tqdm(files_n):
       labelname, ext = os.path.splitext(file)
       predict_val=pd.read_csv(os.path.join(root, file))
 
@@ -93,7 +100,7 @@ def refinePredict(path, refine_out_path=None):
   
   return pitch_result
 
-def predictPitch(path, out_path, model_size, verbose=False):
+def predictPitch(path, out_path, model_size, verbose=False, use_only_vocal=True, overwrite=False):
   """path에 있는 wav파일을 읽어 pitch detection 수행 후 target_path로 csv 출력
     
     Parameters
@@ -102,6 +109,8 @@ def predictPitch(path, out_path, model_size, verbose=False):
       out_path: 내보낼 폴더 경로
       model_size: tiny, small, medium, large, full
       verbose: 로그 출력, 기본값=False
+      use_only_vocal: 파일명 끝에 _vocals로만 되어있는 파일만 대상에 포함
+      overwrite: 출력된 파일이 출력폴더에 이미 존재할 경우 덮어쓰기 여부
     
     Returns
     ----------
@@ -116,21 +125,23 @@ def predictPitch(path, out_path, model_size, verbose=False):
     files_n=copy.deepcopy(files)
     
     for file in files:
-      # vocal 파일만 탐색
-      if not "_vocals" in file:
-        files_n.remove(file)
-        skip_n+=1
+      if use_only_vocal:
+        # vocal 파일만 탐색
+        if not "_vocals" in file:
+          files_n.remove(file)
+          skip_n+=1
 
-      elif "_accompaniment" in file:
-        files_n.remove(file)
-        skip_n+=1
+        elif "_accompaniment" in file:
+          files_n.remove(file)
+          skip_n+=1
       
-      #이미 예측결과 파일이 있는지 확인해서 제외
-      labelname, ext = os.path.splitext(file)
-      if os.path.isfile(os.path.join(out_path, labelname+".f0.csv")):
-        print("Result exists, skipping", file)
-        files_n.remove(file)
-        skip_duplicates+=1
+      if not overwrite:
+        #이미 예측결과 파일이 있는지 확인해서 제외
+        labelname, ext = os.path.splitext(file)
+        if os.path.isfile(os.path.join(out_path, labelname+".f0.csv")):
+          print("Result exists, skipping", file)
+          files_n.remove(file)
+          skip_duplicates+=1
 
     # 로그 출력
     if verbose and skip_n>0 :
@@ -151,7 +162,7 @@ def predictPitch(path, out_path, model_size, verbose=False):
                         output=out_path,
                         model_capacity=model_size,
                         save_activation=False,
-                        save_plot=False,
+                        save_plot=True,
                         plot_voicing=False,
                         step_size=100,
                         viterbi=True,
@@ -175,7 +186,7 @@ if not os.path.isdir(VOCAL_PATH):
 
 #BASE_PATH 내의 vocal 파일들에 대해 변환 수행
 else:
-  predictPitch(VOCAL_PATH, PREDICT_OUT_PATH, MODEL_SIZE, verbose=True)
+  predictPitch(VOCAL_PATH, PREDICT_OUT_PATH, MODEL_SIZE, verbose=True, use_only_vocal=False, overwrite=False)
   pitch_result=refinePredict(PREDICT_OUT_PATH, REFINE_OUT_PATH)
   pitch_result.to_csv(os.path.join(PREDICT_RESULT_PATH, "pitch_result.csv"), mode='w', encoding="utf-8-sig")
   print("Pitch prediction result saved")

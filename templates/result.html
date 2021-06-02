@@ -58,13 +58,15 @@
             predict_list = predict_list.replaceAll('&#39;', '').replaceAll('&#34;', '')
             predict_list = predict_list.substring(0, predict_list.length-1).split(',')
             predict_list_length = predict_list.length
+            predict_init = 0
+            // if(predict_list_length > 41) predict_init = 28
             for(var i = 0; i < predict_list_length; i++) {
                 predict_list[i] = predict_list[i].substring(1)
             }
             // console.log(predict_list) // 음악 리스트
             if(predict_list_length == 1 && predict_list[0] == "") console.log('nothing')
             else {
-                // if (predict_list_length > 12) predict_list_length = 12
+                if (predict_list_length > 12) predict_list_length = 12 + predict_init
                 makeResult("{{search_type}}")
             }
         </script>
